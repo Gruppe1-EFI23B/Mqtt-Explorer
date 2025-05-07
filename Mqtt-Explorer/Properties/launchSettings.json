@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mqtt-Explorer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Mqtt-Explorer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
