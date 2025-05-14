@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MqttModel">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAQAAAAAAAAAAAAAAAAAgAAQAAAAAABAAABAA=</HashCode>
+      <FileName>Models\MqttModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mqtt_Explorer.ViewModels.MqttViewModel">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQEAAAAAAAAAAAAAAABAAAIAAgQAQAAgAAAAAAAACA=</HashCode>
+      <FileName>ViewModels\MqttViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mqtt_wpf.App">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mqtt_Explorer.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
