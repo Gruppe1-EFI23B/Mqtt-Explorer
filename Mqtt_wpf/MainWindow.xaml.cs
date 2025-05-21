@@ -18,5 +18,10 @@ namespace Mqtt_Explorer
 
         // Zugriff auf das ViewModel über das DataContext
         private MqttViewModel Vm => (MqttViewModel)this.DataContext;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
