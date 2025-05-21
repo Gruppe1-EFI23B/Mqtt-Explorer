@@ -21,7 +21,7 @@
         </Border>
 
         <!-- Status Messages -->
-        <Border CornerRadius="5" Padding="5,0" BorderBrush="SlateGray" BorderThickness="3" Margin="10,376,10,0" VerticalAlignment="Top" Height="48">
+        <Border CornerRadius="5" Padding="5,0" BorderBrush="SlateGray" BorderThickness="3" Margin="13,355,7,0" VerticalAlignment="Top" Height="48">
             <TextBlock Text="{Binding vm.StatusMessage}"/>
         </Border>
 
@@ -34,7 +34,7 @@
         </Border>
         <Label Content="Sende&#xD;&#xA;" HorizontalAlignment="Left" Margin="493,34,0,0" VerticalAlignment="Top" Height="26"/>
         <Label Content="Empfangen&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="866,34,0,0" VerticalAlignment="Top" Height="26"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="20,350,0,0" VerticalAlignment="Top" Height="26"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="21,332,0,0" VerticalAlignment="Top" Height="26"/>
         <ComboBox HorizontalAlignment="Left" Margin="13,138,0,0" VerticalAlignment="Top" Width="210"/>
         <Label Content="Topic auswählen:" HorizontalAlignment="Left" Margin="68,112,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.333,0.51"/>
         <Label Content="wird duurch die CB ersetzt" HorizontalAlignment="Left" Margin="75,179,0,0" VerticalAlignment="Top" Height="26"/>
