@@ -33,3 +33,5 @@ namespace Mqtt_Explorer
         private MqttViewModel vm => (MqttViewModel)root.DataContext;
     }
 }
+
+

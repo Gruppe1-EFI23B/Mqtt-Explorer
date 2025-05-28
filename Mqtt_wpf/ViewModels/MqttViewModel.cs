@@ -21,16 +21,27 @@ public partial class MqttViewModel : ObservableObject
     string statusMessage;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PublishEnabled))]
     string topic;
 
+    [NotifyPropertyChangedFor(nameof(PublishEnabled))]
     [ObservableProperty]
     string message;
+
+
+    public bool PublishEnabled => mqttModel.client.IsConnected && !string.IsNullOrWhiteSpace(Topic) && !string.IsNullOrWhiteSpace(Message);
 
     public MqttViewModel()
     {
         mqttModel = new();
         mqttModel.MessageReceived += (message) => ReceivedMessage += message + "\n";
-        mqttModel.StatusUpdated += (status) => StatusMessage += status + "\n";
+        mqttModel.StatusUpdated += StatusUpdated;
+    }
+
+    private void StatusUpdated(string status)
+    {
+        StatusMessage += status + "\n";
+        OnPropertyChanged(nameof(PublishEnabled));
     }
 
     [RelayCommand]

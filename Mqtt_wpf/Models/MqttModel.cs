@@ -1,12 +1,17 @@
 ﻿// MqttModel.cs
 using MQTTnet;
 using System;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
 public class MqttModel
 {
-    private IMqttClient client;
+    private readonly HttpClient _httpClient = new();
+    private readonly string _apiUrl = "http://localhost:8000/mqtt/topic"; // ggf. URL anpassen
+    static int counter = 1;
+    public IMqttClient client;
 
     public event Action<string> MessageReceived;
     public event Action<string> StatusUpdated;
@@ -49,6 +54,13 @@ public class MqttModel
         }
     }
 
+    public class MqttMessageCreate
+    {
+        public string topic { get; set; }
+        public string payload { get; set; }
+        public string timestamp { get; set; }
+    }
+
     public async Task SubscribeAsync(string topic)
     {
         if (client.IsConnected)
@@ -57,6 +69,8 @@ public class MqttModel
             StatusUpdated?.Invoke($"Subscribed to topic: {topic}");
         }
     }
+
+
 
     public async Task PublishAsync(string topic, string message)
     {
@@ -67,6 +81,17 @@ public class MqttModel
                 .WithPayload(message)
                 .Build();
             await client.PublishAsync(mqttMessage);
+
+            // Passendes Objekt für FastAPI bauen
+            var apiMessage = new MqttMessageCreate
+            {
+                topic = topic,
+                payload = message,
+                timestamp = DateTime.UtcNow.ToString("o")
+            };
+
+            var response = await _httpClient.PostAsJsonAsync(_apiUrl, apiMessage);
+            counter++;
             StatusUpdated?.Invoke($"Message published to topic {topic}: {message}");
         }
     }
