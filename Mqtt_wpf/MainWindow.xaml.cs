@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.Data.Sqlite;
 using Mqtt_Explorer.ViewModels;
 
 namespace Mqtt_Explorer
@@ -12,11 +13,13 @@ namespace Mqtt_Explorer
         public MainWindow()
         {
             InitializeComponent();
+
+            
+
+
             // Setze das DataContext auf das ViewModel
             this.DataContext = new MqttViewModel();
-        }
 
-        // Zugriff auf das ViewModel über das DataContext
-        private MqttViewModel Vm => (MqttViewModel)this.DataContext;
+        }
     }
 }

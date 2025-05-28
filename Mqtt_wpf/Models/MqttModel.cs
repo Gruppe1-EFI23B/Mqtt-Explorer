@@ -70,4 +70,9 @@ public class MqttModel
             StatusUpdated?.Invoke($"Message published to topic {topic}: {message}");
         }
     }
+    public async Task TopicAsync(string topic, string message)
+    {
+
+
+    }
 }

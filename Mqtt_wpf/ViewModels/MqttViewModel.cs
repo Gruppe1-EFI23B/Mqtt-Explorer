@@ -1,6 +1,7 @@
 ﻿// MqttViewModel.cs
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Data.Sqlite;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -31,6 +32,34 @@ public partial class MqttViewModel : ObservableObject
         mqttModel = new();
         mqttModel.MessageReceived += (message) => ReceivedMessage += message + "\n";
         mqttModel.StatusUpdated += (status) => StatusMessage += status + "\n";
+
+
+        var sql = @"CREATE TABLE Topics(
+            id INTEGER PRIMARY KEY,
+            Topic TEXT NOT NULL,
+            )";
+
+        var sql2 = @"Insert into Topics values (1,'Maschine01')";
+
+        try
+        {
+            using var connection = new SqliteConnection(@"Data Source=H:\Desktop\DB\pub.db");
+            connection.Open();
+
+            using var command = new SqliteCommand(sql, connection);
+            using var command2 = new SqliteCommand(sql2, connection);
+            command.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
+
+            Console.WriteLine("Table 'Topics' created successfully.");
+
+
+
+        }
+        catch (SqliteException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     [RelayCommand]
@@ -55,5 +84,11 @@ public partial class MqttViewModel : ObservableObject
     public async Task PublishAsync()
     {
         await mqttModel.PublishAsync(Topic, Message);
+    }
+
+    [RelayCommand]
+    public async Task TopicAsync()
+    {
+        await mqttModel.TopicAsync(Topic, Message);
     }
 }

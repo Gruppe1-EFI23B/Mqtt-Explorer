@@ -33,7 +33,7 @@
         <Label Content="Sende&#xA;" HorizontalAlignment="Left" Margin="493,34,0,0" VerticalAlignment="Top" Height="26"/>
         <Label Content="Empfangen&#xA;&#xA;" HorizontalAlignment="Left" Margin="866,34,0,0" VerticalAlignment="Top" Height="26"/>
         <Label Content="Status" HorizontalAlignment="Left" Margin="21,332,0,0" VerticalAlignment="Top" Height="26"/>
-        <ComboBox HorizontalAlignment="Left" Margin="13,138,0,0" VerticalAlignment="Top" Width="210"/>
+        <!--<ComboBox HorizontalAlignment="Left" Margin="13,138,0,0" VerticalAlignment="Top" Width="210" Command="{Binding TopicCommand}"/>-->
         <Label Content="Topic auswählen:" HorizontalAlignment="Left" Margin="68,112,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.333,0.51"/>
         <Label Content="wird duurch die CB ersetzt" HorizontalAlignment="Left" Margin="75,179,0,0" VerticalAlignment="Top" Height="26"/>
     </Grid>
