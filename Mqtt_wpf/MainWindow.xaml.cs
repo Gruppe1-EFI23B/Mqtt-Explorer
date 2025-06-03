@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Entity;
 using System.Windows;
-using Datenbank;
 using Mqtt_Explorer.ViewModels;
 using Microsoft.Data.Sqlite;
 
