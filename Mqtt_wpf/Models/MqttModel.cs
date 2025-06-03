@@ -70,8 +70,6 @@ public class MqttModel
         }
     }
 
-
-
     public async Task PublishAsync(string topic, string message)
     {
         if (client.IsConnected)
@@ -81,17 +79,6 @@ public class MqttModel
                 .WithPayload(message)
                 .Build();
             await client.PublishAsync(mqttMessage);
-
-            // Passendes Objekt für FastAPI bauen
-            var apiMessage = new MqttMessageCreate
-            {
-                topic = topic,
-                payload = message,
-                timestamp = DateTime.UtcNow.ToString("o")
-            };
-
-            var response = await _httpClient.PostAsJsonAsync(_apiUrl, apiMessage);
-            counter++;
             StatusUpdated?.Invoke($"Message published to topic {topic}: {message}");
         }
     }
