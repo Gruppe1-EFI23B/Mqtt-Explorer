@@ -22,7 +22,12 @@ namespace Mqtt_Explorer
             var dbHelper = new DatabaseHelper();
             dbHelper.EnsureDatabaseAndTable();
             Vm.LoadTopicsFromDatabase(); // <-- Topics laden
+            
         }
 
+        private void Connect_Click(object sender, RoutedEventArgs e)
+        {
+            btn_Connect.Content = "Test";
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 public class MqttModel
 {
@@ -38,6 +39,8 @@ public class MqttModel
 
             await client.ConnectAsync(options);
             StatusUpdated?.Invoke($"Connected to broker {brokerAddress}");
+
+
         }
         catch (Exception ex)
         {
@@ -80,6 +83,16 @@ public class MqttModel
                 .Build();
             await client.PublishAsync(mqttMessage);
             StatusUpdated?.Invoke($"Message published to topic {topic}: {message}");
+        }
+    }
+
+    public async Task UnsubscribeAsync(string topic)
+    {
+        if (client.IsConnected) 
+        {
+            await client.UnsubscribeAsync(topic);
+            StatusUpdated?.Invoke($"Topic unsubscribed {topic}");
+
         }
     }
 }

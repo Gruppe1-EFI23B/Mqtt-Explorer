@@ -113,4 +113,10 @@ public partial class MqttViewModel : ObservableObject
     {
         await mqttModel.PublishAsync(Topic, Message);
     }
+
+    [RelayCommand]
+    public async Task UnsubscribeAsync()
+    {
+        await mqttModel.UnsubscribeAsync(Topic);
+    }
 }

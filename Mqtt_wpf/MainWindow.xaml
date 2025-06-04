@@ -8,7 +8,7 @@
         <TextBox Text="{Binding BrokerAddress, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="213" Height="40" FontSize="20" TextAlignment="Center" av:IsLocked="True"/>
 
         <!-- Connect Button -->
-        <Button Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Width="100" Height="40" Command="{Binding ConnectCommand}" />
+        <Button Name="btn_Connect" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Width="100" Height="40" Command="{Binding ConnectCommand }" Click="Connect_Click" />
 
         <!-- Disconnect Button -->
         <Button Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="123,60,0,0" Width="100" Height="40" Command="{Binding DisconnectCommand}" />
@@ -30,7 +30,7 @@
         <TextBox Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,217,0,0" Width="300" Height="40" />
         <Button Content="Publish" IsEnabled="{Binding PublishEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,287,0,0" Width="100" Height="40" Command="{Binding PublishCommand}" />
         <Button Content="Subscribe" IsEnabled="{Binding SubscribeEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,287,0,0" Height="40" Width="100" Command="{Binding SubscribeCommand}"/>
-        <Button Content="Unsubscribe" IsEnabled="{Binding Enabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,287,0,0" Height="40" Width="100" Command="{Binding SubscribeCommand}"/>
+        <Button Content="Unsubscribe" IsEnabled="{Binding Enabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,287,0,0" Height="40" Width="100" Command="{Binding UnsubscribeCommand}"/>
         <Label Content="Status" HorizontalAlignment="Left" Margin="493,34,0,0" VerticalAlignment="Top" Height="26"/>
         <Label Content="Empfangen" HorizontalAlignment="Left" Margin="866,34,0,0" VerticalAlignment="Top" Height="26"/>
         <Label Content="Topic eingeben:" HorizontalAlignment="Left" Margin="68,112,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.333,0.51"/>
