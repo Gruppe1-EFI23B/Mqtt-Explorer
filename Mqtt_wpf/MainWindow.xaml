@@ -8,7 +8,7 @@
         <TextBox Text="{Binding BrokerAddress, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="213" Height="40" FontSize="20" TextAlignment="Center" av:IsLocked="True"/>
 
         <!-- Connect Button -->
-        <Button Name="btn_Connect" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Width="100" Height="40" Command="{Binding ConnectCommand }" Click="Connect_Click" />
+        <Button Name="btn_Connect" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Width="100" Height="40" Click="Connect_Click" /><!--"{Binding ConnectCommand }"-->
 
         <!-- Disconnect Button -->
         <Button Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="123,60,0,0" Width="100" Height="40" Command="{Binding DisconnectCommand}" />

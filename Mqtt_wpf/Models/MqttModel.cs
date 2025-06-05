@@ -14,6 +14,8 @@ public class MqttModel
     static int counter = 1;
     public IMqttClient client;
 
+    public string ClientId { get; private set; }
+
     public event Action<string> MessageReceived;
     public event Action<string> StatusUpdated;
 
@@ -32,6 +34,7 @@ public class MqttModel
     {
         try
         {
+            this.ClientId = clientId;
             var options = new MqttClientOptionsBuilder()
                 .WithTcpServer(brokerAddress)
                 .WithClientId(clientId)
