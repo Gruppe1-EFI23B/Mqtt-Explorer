@@ -1,18 +1,18 @@
 ﻿// MqttModel.cs
 using MQTTnet;
 using System;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
 public class MqttModel
 {
-    private readonly HttpClient _httpClient = new();
-    private readonly string _apiUrl = "http://localhost:8000/mqtt/topic"; // ggf. URL anpassen
-    static int counter = 1;
     public IMqttClient client;
+    private readonly HashSet<string> _subscribedTopics = new();
+    public bool IsSubscribed(string topic)
+    {
+        return _subscribedTopics.Contains(topic);
+    }
 
     public string ClientId { get; private set; }
 
@@ -60,22 +60,25 @@ public class MqttModel
         }
     }
 
-    public class MqttMessageCreate
-    {
-        public string topic { get; set; }
-        public string payload { get; set; }
-        public string timestamp { get; set; }
-    }
-
     public async Task SubscribeAsync(string topic)
     {
         if (client.IsConnected)
         {
             await client.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(topic).Build());
+            _subscribedTopics.Add(topic);
             StatusUpdated?.Invoke($"Subscribed to topic: {topic}");
         }
     }
+    public async Task UnsubscribeAsync(string topic)
+    {
+        if (client.IsConnected)
+        {
+            await client.UnsubscribeAsync(topic);
+            _subscribedTopics.Remove(topic);
+            StatusUpdated?.Invoke($"Topic unsubscribed {topic}");
 
+        }
+    }
     public async Task PublishAsync(string topic, string message)
     {
         if (client.IsConnected)
@@ -86,16 +89,6 @@ public class MqttModel
                 .Build();
             await client.PublishAsync(mqttMessage);
             StatusUpdated?.Invoke($"Message published to topic {topic}: {message}");
-        }
-    }
-
-    public async Task UnsubscribeAsync(string topic)
-    {
-        if (client.IsConnected) 
-        {
-            await client.UnsubscribeAsync(topic);
-            StatusUpdated?.Invoke($"Topic unsubscribed {topic}");
-
         }
     }
 }
