@@ -68,5 +68,15 @@ namespace Mqtt_Explorer.Helpers
         }
 
         public string GetDatabasePath() => dbPath;
+
+        public void InsertTopic(string topic)
+        {
+            using var connection = new SqliteConnection($"Data Source={dbPath}");
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO Topics (topic) VALUES (@topic)";
+            command.Parameters.AddWithValue("@topic", topic);
+            command.ExecuteNonQuery();
+        }
     }
 }

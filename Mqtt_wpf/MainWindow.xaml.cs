@@ -56,6 +56,7 @@ namespace Mqtt_Explorer
                     btn_Connect.Content = "Connect";
                     btn_Subscribe.IsEnabled = false;
                     await mqttModel.DisconnectAsync();
+                    SubscribeClick(sender, e);
                 }
             }
         }
@@ -69,7 +70,7 @@ namespace Mqtt_Explorer
                 btn_Subscribe.Content = "Subscribe";
                 btn_Subscribe.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGreen);
                 isSubscribed = false;
-                btn_Publish.IsEnabled = true;
+                btn_Publish.IsEnabled = false;
             }
             else
             {
@@ -77,7 +78,29 @@ namespace Mqtt_Explorer
                 btn_Subscribe.Content = "Unsubscribe";
                 btn_Subscribe.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightSalmon);
                 isSubscribed = true;
-                btn_Publish.IsEnabled = false;
+                btn_Publish.IsEnabled = true;
+            }
+        }
+
+        private void ToggleTheme_Click(object sender, RoutedEventArgs e)
+        {
+            //Alt
+        }
+
+        private void AddTopic_Click(object sender, RoutedEventArgs e)
+        {
+            var dbHelper = new DatabaseHelper();
+            string newTopic = tbAddTopic.Text; // oder aus einem Textfeld, z.B. txtNewTopic.Text
+
+            if (!string.IsNullOrWhiteSpace(newTopic))
+            {
+                dbHelper.InsertTopic(newTopic);
+                Vm.LoadTopicsFromDatabase(); // Liste aktualisieren
+                MessageBox.Show("Topic hinzugefügt!");
+            }
+            else
+            {
+                MessageBox.Show("Bitte ein Topic eingeben.");
             }
         }
     }

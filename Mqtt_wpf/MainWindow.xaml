@@ -1,40 +1,86 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Mqtt_Explorer.MainWindow"
-        Title="Mqtt Explorer" MinHeight="400" MinWidth="1060" MaxHeight="400" MaxWidth="1060" Background="AliceBlue">
-    <Grid x:Name="root">
-        <!-- Broker Address Input -->
-        <TextBox Text="{Binding BrokerAddress, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="213" Height="40" FontSize="20" TextAlignment="Center" av:IsLocked="True"/>
+    x:Class="Mqtt_Explorer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="MQTT Explorer"
+    MinHeight="400" MinWidth="1060" MaxHeight="400" MaxWidth="1060"
+    Background="#f0f4f8"
+    FontFamily="Segoe UI" FontSize="14">
 
-        <!-- Connect Button -->
-        <Button Name="btn_Connect" Content="Connect" Background="LightGreen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,60,0,0" Width="100" Height="40" Click="Connect_Click" />
-        
-        <!-- Subscribe Button -->
-        <Button Name="btn_Subscribe" Content="Subscribe" Background="LightGreen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,287,0,0" Height="40" Width="100" Click="SubscribeClick" IsEnabled="False"/>
-        
-        <!-- Received Messages -->
-        <Border CornerRadius="5" Padding="5,0" BorderBrush="SlateGray" BorderThickness="3" Margin="800,60,10,0" VerticalAlignment="Top" Height="200">
-            <TextBlock Text="{Binding ReceivedMessage}"/>
-        </Border>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Broker Address Input -->
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+            <TextBox Text="{Binding BrokerAddress, Mode=TwoWay}" Width="175" Height="30" 
+                     VerticalContentAlignment="Center" Margin="0,0,10,0" 
+                     Padding="1"/>
+            <Button Name="btn_Connect" Content="🔌 Connect" Width="100" Height="36"
+                    Background="#28a745" Foreground="White" 
+                    FontWeight="SemiBold" BorderBrush="Transparent"
+                    Click="Connect_Click"/>
+        </StackPanel>
+
+        <!-- Topic + Message -->
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,0">
+            <TextBlock Text="Topic eingeben:" Margin="0,0,0,4"/>
+            <ComboBox x:Name="cbTopics" ItemsSource="{Binding Topics}" 
+                      SelectedItem="{Binding Topic, Mode=TwoWay}" 
+                      Height="30" Width="250"/>
+            <TextBlock Text="Message eingeben:" Margin="0,0,0,4"/>
+            <TextBox Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="30" Width="250" Padding="1" Margin="0,0,10,10"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button Name="btn_Publish" Content="📤 Publish" Width="100" Height="36"
+                        Background="#17a2b8" Foreground="White" 
+                        BorderBrush="Transparent" Margin="0,0,10,0"
+                        Command="{Binding PublishCommand}" IsEnabled="False"/>
+                <Button Name="btn_Subscribe" Content="🔔 Subscribe" Width="100" Height="36"
+                        Background="#007bff" Foreground="White" 
+                        BorderBrush="Transparent" 
+                        Click="SubscribeClick" IsEnabled="False"/>
+            </StackPanel>
+            <TextBlock Text="Topic hinzufügen:" Margin="0,10,0,4"/>
+            <TextBox Name="tbAddTopic" Height="30" Width="256" Padding="1"/>
+            <Button Content="➕ Hinzufügen" Width="100" Height="30" Margin="0,5,0,0"
+                    Background="#6c757d" Foreground="White" Click="AddTopic_Click"/>
+        </StackPanel>
 
         <!-- Status Messages -->
-        <Border CornerRadius="5" Padding="5,0" BorderBrush="SlateGray" BorderThickness="3" Margin="366,60,310,0" VerticalAlignment="Top" Height="200">
-            <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap"/>
-            </ScrollViewer>
-        </Border>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="20,0" VerticalAlignment="Top">
+            <TextBlock Text="Status" FontWeight="Bold" Margin="0,0,0,5"/>
+            <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="6" Padding="10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
+                    <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </Border>
+        </StackPanel>
 
-        <!-- Publish Message Section -->
-        <ComboBox Name="cbTopics" ItemsSource="{Binding Topics}" SelectedItem="{Binding Topic, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,143,0,0" Width="300" Height="40"/>
-        <TextBox Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,217,0,0" Width="300" Height="40" />
-        <Button Name="btn_Publish" Content="Publish" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,287,0,0" Width="100" Height="40" Command="{Binding PublishCommand}" IsEnabled="False"/>
-        
-       
-        <Label Content="Status" HorizontalAlignment="Left" Margin="493,34,0,0" VerticalAlignment="Top" Height="26"/>
-        <Label Content="Empfangen" HorizontalAlignment="Left" Margin="866,34,0,0" VerticalAlignment="Top" Height="26"/>
-        <Label Content="Topic eingeben:" HorizontalAlignment="Left" Margin="68,112,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.333,0.51"/>
-        <TextBlock HorizontalAlignment="Left" Margin="90,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Message eingeben"/></TextBlock>
-        
+        <!-- Received Messages -->
+        <StackPanel Grid.Column="2" Grid.Row="1" Margin="20,0" VerticalAlignment="Top">
+            <TextBlock Text="Empfangen" FontWeight="Bold" Margin="0,0,0,5"/>
+            <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="6" Padding="10" Height="221">
+                <TextBlock Text="{Binding ReceivedMessage}" TextWrapping="Wrap" Margin="0,0,0,-1" RenderTransformOrigin="0.5,0.5" Height="200">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0.375"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.585"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>
